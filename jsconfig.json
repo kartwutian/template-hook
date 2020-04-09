@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "stylesheet/*": ["src/asset/stylesheet/*"],
+      "image/*": ["src/asset/image/*"],
+      "utils/*": ["src/utils/*"],
+      "models/*": ["src/models/*"],
+      "layout/*": ["src/layout/*"],
+      "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "constant/*": ["src/constant/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*"],
+  "experimentalDecorators": true
+}

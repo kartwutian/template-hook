@@ -13,6 +13,25 @@ const router = [
     "routes": [],
     "path": "pages/Home/index",
     "name": "首页"
+  },
+  {
+    "route": "/project",
+    "routes": [
+      {
+        "route": "/project/list",
+        "routes": [],
+        "path": "pages/Project/List",
+        "name": "项目列表"
+      },
+      {
+        "route": "/project/Developing",
+        "routes": [],
+        "path": "pages/Project/Developing",
+        "name": "项目开发",
+        "template": "list"
+      }
+    ],
+    "name": "项目"
   }
 ]
 

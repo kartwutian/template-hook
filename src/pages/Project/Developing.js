@@ -4,9 +4,9 @@ import { observer, useLocalStore } from 'mobx-react';
 import { Card, Table, Tag, Button, Row } from 'antd';
 import { useStore } from '@/store/index';
 
-import styles from '<%= stylePath%>';
+import styles from './Developing.less';
 
-function <%= modelName%>Page() {
+function ProjectDevelopingPage() {
   const localStore = useLocalStore(() => ({
     list: [],
   }));
@@ -60,7 +60,7 @@ function <%= modelName%>Page() {
     },
   ];
 
-  const store = useStore('model<%= modelName%>'); // 注意store里面的数据不要使用解构赋值
+  const store = useStore('modelProjectDeveloping'); // 注意store里面的数据不要使用解构赋值
   console.log(store);
 
   return (
@@ -80,4 +80,4 @@ function <%= modelName%>Page() {
   );
 }
 
-export default observer(CSSModules(<%= modelName%>Page, styles));
+export default observer(CSSModules(ProjectDevelopingPage, styles));

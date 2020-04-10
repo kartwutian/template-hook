@@ -11,7 +11,7 @@ import {
   UserAddOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import SiderMenu from '../SiderMenu/index';
+import SiderMenu from './SiderMenu';
 
 import loginUtil from 'utils/login';
 
@@ -78,7 +78,7 @@ const App = ({ children }) => {
           </Dropdown>
         </Header>
         <Content>
-          <div styleName="app-layout__sider">{children}</div>
+          <div styleName="app-layout__content">{children}</div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           万博大数据 ©2020 Created by XX

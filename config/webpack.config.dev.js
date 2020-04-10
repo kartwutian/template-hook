@@ -12,7 +12,7 @@ module.exports = function () {
     module: {
       rules: [
         {
-          test: /(\.css$)|(\.less$)/,
+          test: /\.less$/,
           include: path.resolve(PATHS.src, 'assets/styles'), // 全局样式
           use: [
             {

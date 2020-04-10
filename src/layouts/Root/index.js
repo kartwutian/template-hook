@@ -7,6 +7,7 @@ import { StoreProvider } from '@/store/index';
 import AppRouter from './AppRouter';
 
 import 'assets/styles/app.less';
+import 'assets/styles/animate.css';
 
 export default function Root() {
   return (

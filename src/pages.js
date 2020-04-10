@@ -20,12 +20,21 @@ module.exports = {
       route: '/home',
       name: '首页',
     },
-    // {
-    //   path: 'pages/Home/Shop/index',
-    //   route: '/home/shop',
-    //   name: 'shop',
-    //   isInLayout: false, // 标记不包括layout
-    // },
+    {
+      route: '/project',
+      name: '项目',
+    },
+    {
+      path: 'pages/Project/List',
+      route: '/project/list',
+      name: '项目列表',
+    },
+    {
+      path: 'pages/Project/Developing',
+      route: '/project/Developing',
+      name: '项目开发',
+      template: 'list',
+    },
     // {
     //   path: 'pages/Home/Shop/Demo',
     //   route: '/home/shop/demo',

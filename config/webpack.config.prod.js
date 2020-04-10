@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
@@ -8,7 +8,7 @@ const { PATHS } = require('./config');
 
 module.exports = function () {
   return merge(commonConfig, {
-    mode: 'development',
+    mode: 'production',
     module: {
       rules: [
         {
@@ -16,7 +16,7 @@ module.exports = function () {
           include: path.resolve(PATHS.src, 'assets/styles'), // 全局样式
           use: [
             {
-              loader: 'style-loader',
+              loader: MiniCssExtractPlugin.loader,
             },
             {
               loader: 'css-loader',
@@ -33,7 +33,7 @@ module.exports = function () {
           test: /\.css$/, // css 没有模块化处理
           use: [
             {
-              loader: 'style-loader',
+              loader: MiniCssExtractPlugin.loader,
             },
             {
               loader: 'css-loader',
@@ -45,7 +45,7 @@ module.exports = function () {
           exclude: path.resolve(PATHS.src, 'assets/styles'),
           use: [
             {
-              loader: 'style-loader',
+              loader: MiniCssExtractPlugin.loader,
             },
             {
               loader: 'css-loader',
@@ -77,7 +77,12 @@ module.exports = function () {
       ],
     },
     plugins: [
-      new ErrorOverlayPlugin(),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: 'static/css/[name].[contenthash:8].css',
+        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      }),
       new HtmlWebpackPlugin({
         template: 'src/assets/template/index.html',
       }),

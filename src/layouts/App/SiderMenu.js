@@ -47,11 +47,12 @@ const renderMenus = (routes) => {
   });
 };
 
-function SiderMenu(){
+function SiderMenu(props){
+  const {collapsed} = props;
   const globalStore = useStore('globalModel');
   const history = useHistory();
   const location = useLocation();
-
+  console.log(collapsed)
   // const handleMenuClick = ({ key }) => {
 
   //   if (key === '/project') {
@@ -66,7 +67,7 @@ function SiderMenu(){
       // defaultOpenKeys={['exchangemgr']}
       mode="inline"
       theme="dark"
-      // inlineCollapsed={collapsed}
+      inlineCollapsed={collapsed}
       // onClick={handleMenuClick}
     >
       {renderMenus(globalStore.router)}

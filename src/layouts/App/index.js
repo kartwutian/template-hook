@@ -21,7 +21,7 @@ import styles from './index.less';
 const { Header, Sider, Content, Footer } = Layout;
 
 const App = ({ children }) => {
-  const [collapsed, setcollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const userInfo = loginUtil.getUserInfo() || {};
   const location = useLocation();
   const globalStore = useStore('globalModel');
@@ -96,35 +96,56 @@ const App = ({ children }) => {
   };
 
   return (
-    <Layout>
-      <Sider styleName="app-layout__sider">
-        <SiderMenu></SiderMenu>
+    <Layout styleName="app-layout">
+      <Sider collapsed={collapsed}>
+        <SiderMenu collapsed={collapsed}></SiderMenu>
       </Sider>
       <Layout>
-        <Header style={{ background: '#fff' }}>
-          <Tooltip title="使用文档">
-            <a
-              target="_blank"
-              href="https://ywinvesttest.zjbdos.com/static-resource/wb-uni-pro/"
-              rel="noopener noreferrer"
-              title="使用文档"
-            >
-              <QuestionCircleOutlined />
-            </a>
-          </Tooltip>
-          <Dropdown overlay={menu}>
-            <span>
-              {/* <Avatar
-                    size="small"
-                    styleName="avatar"
-                    // src={userInfo.avatar}
-                    // src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
-                    alt="avatar"
-                  /> */}
-              <span>{userInfo.name}</span>
-            </span>
-          </Dropdown>
-        </Header>
+        <Header>
+          <div styleName="header-item">
+            {
+              collapsed ? (
+                <MenuUnfoldOutlined styleName="icon-size--primary" onClick={()=>{
+                  console.log(1)
+                  setCollapsed(false)
+                }} />
+              ) : (<MenuFoldOutlined styleName="icon-size--primary" onClick={()=>{
+                console.log(2)
+                setCollapsed(true)
+              }} />)
+            }
+            {collapsed}
+          </div>
+          <div styleName="header-item--main"></div>
+          <div styleName="header-item">
+            <Tooltip title="使用文档">
+              <a
+                target="_blank"
+                href="https://ywinvesttest.zjbdos.com/static-resource/wb-uni-pro/"
+                rel="noopener noreferrer"
+                title="使用文档"
+              >
+                <QuestionCircleOutlined styleName="icon-size--primary" />
+              </a>
+            </Tooltip>
+          </div>
+
+          <div styleName="header-item">
+            <Dropdown overlay={menu}>
+              <span>
+                {/* <Avatar
+                      size="small"
+                      styleName="avatar"
+                      // src={userInfo.avatar}
+                      // src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
+                      alt="avatar"
+                    /> */}
+                <span>{userInfo.name}</span>
+              </span>
+            </Dropdown>
+          </div>
+
+          </Header>
 
         <Content>
           {renderSubHeader()}

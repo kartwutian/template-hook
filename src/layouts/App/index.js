@@ -11,6 +11,8 @@ import {
   UserAddOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import SiderMenu from '../SiderMenu/index';
+
 import loginUtil from 'utils/login';
 
 import styles from './index.less';
@@ -47,7 +49,9 @@ const App = ({ children }) => {
 
   return (
     <Layout>
-      <Sider styleName="app-layout__sider"></Sider>
+      <Sider styleName="app-layout__sider">
+        <SiderMenu></SiderMenu>
+      </Sider>
       <Layout>
         <Header style={{ background: '#fff' }}>
           <Tooltip title="使用文档">

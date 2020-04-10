@@ -1,109 +1,83 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CSSModules from 'react-css-modules';
-import { Button, Table, Tag } from 'antd';
+import { Button, Form, Input, Checkbox, message } from 'antd';
+import { Link, useHistory } from 'react-router-dom';
 import { useStore } from '@/store/index';
 import { observer, useLocalStore } from 'mobx-react';
 
 import styles from './index.less';
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (tags) => (
-      <span>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <a style={{ marginRight: 16 }}>Invite {record.name}</a>
-        <a>Delete</a>
-      </span>
-    ),
-  },
-];
-
 function LoginPage() {
-  // const curStore = useLocalStore(() => ({
-  //   data: [
-  //     {
-  //       key: '1',
-  //       name: 'John Brown',
-  //       age: 32,
-  //       address: 'New York No. 1 Lake Park',
-  //       tags: ['nice', 'developer'],
-  //     },
-  //   ],
-  //   addData() {
-  //     curStore.data = [
-  //       ...curStore.data,
-  //       {
-  //         key: '1',
-  //         name: 'John Brown',
-  //         age: 32,
-  //         address: 'New York No. 1 Lake Park',
-  //         tags: ['nice', 'developer'],
-  //       },
-  //     ];
-  //   },
-  // }));
-  // const [data, setData] = useState([
-  //   {
-  //     key: '1',
-  //     name: 'John Brown',
-  //     age: 32,
-  //     address: 'New York No. 1 Lake Park',
-  //     tags: ['nice', 'developer'],
-  //   },
-  // ]);
-
   const store = useStore('modelLogin');
-  console.log(store);
-  // const data = curStore.data;
-  // const addData = curStore.addData;
+  const localStore = useLocalStore(() => ({}));
+  const history = useHistory();
+  const formRef = useRef(null);
+  const handleSubmit = (values) => {
+    message.success('登录成功');
+    history.push('/home');
+  };
+  const onFinishFailed = () => {};
   return (
-    <div>
-      <Button
-        styleName="bg"
-        onClick={() => {
-          store.changeName();
-        }}
-      >
-        {store.name}
-      </Button>
-      {/* <Table columns={columns} dataSource={data} /> */}
+    <div styleName="page">
+      <div styleName="content">
+        <div styleName="top">
+          <div styleName="header">
+            <Link to="/">
+              <img
+                styleName="logo"
+                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                alt="logo"
+              />
+              <span styleName="title">基于 Ant Design</span>
+            </Link>
+          </div>
+          <div styleName="desc">万博通用后台管理系统模板</div>
+        </div>
+        <div styleName="login">
+          <Form
+            name="basic"
+            ref={formRef}
+            onFinish={handleSubmit}
+            onFinishFailed={onFinishFailed}
+          >
+            <Form.Item
+              label="账号"
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入账号名',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="密码"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入密码',
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item name="remember" valuePropName="checked">
+              <Checkbox>记住密码</Checkbox>
+            </Form.Item>
+
+            <Form.Item>
+              <Button size="large" block type="primary" htmlType="submit">
+                登录
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 }

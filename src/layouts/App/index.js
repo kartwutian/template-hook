@@ -1,7 +1,12 @@
 import React from 'react';
+import CSSModules from 'react-css-modules';
+import { observer } from 'mobx-react';
+import { Layout } from 'antd';
+
+import styles from './index.less';
 
 const App = () => {
-  return <div>app</div>;
+  return <Layout>123</Layout>;
 };
 
-export default App;
+export default observer(CSSModules(App, styles));

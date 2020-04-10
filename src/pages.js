@@ -15,12 +15,11 @@ module.exports = {
       name: '登录',
       isInLayout: false, // 标记不包括layout
     },
-    // {
-    //   path: 'pages/Home/index',
-    //   route: '/home',
-    //   name: '首页',
-    //   isInLayout: false, // 标记不包括layout
-    // },
+    {
+      path: 'pages/Home/index',
+      route: '/home',
+      name: '首页',
+    },
     // {
     //   path: 'pages/Home/Shop/index',
     //   route: '/home/shop',

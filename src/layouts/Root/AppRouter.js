@@ -4,8 +4,10 @@ import { createHashHistory } from 'history';
 import { useStore } from '@/store/index';
 import Loading from 'components/Loading';
 import Exception from 'components/Exception/index.js';
+import App from 'layouts/App/index';
 
-// import auth from 'utils/auth';
+import loginUtil from 'utils/login';
+import auth from 'utils/auth';
 
 // /**
 //  * 模拟延时加载组件
@@ -79,7 +81,34 @@ export default function AppRouter() {
   return (
     <Router history={appHistory}>
       <>
-        <Switch>{renderRouter(routerOut)}</Switch>
+        <Switch>
+          {renderRouter(routerOut)}
+          {loginUtil.isLogin() ? (
+            <App>
+              <Switch>
+                {renderRouter(routerInner)}
+                <Route
+                  render={(props) => {
+                    return <Exception type="404" />;
+                  }}
+                />
+              </Switch>
+            </App>
+          ) : (
+            <Route
+              render={(props) => {
+                const Temp = lazy(() => import('pages/Login'));
+                return (
+                  <Suspense fallback={<Loading />}>
+                    <div className="animated faster fadeInRight">
+                      <Temp {...props} />
+                    </div>
+                  </Suspense>
+                );
+              }}
+            />
+          )}
+        </Switch>
       </>
     </Router>
   );

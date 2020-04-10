@@ -54,7 +54,7 @@ module.exports = function () {
                 modules: {
                   mode: 'local',
                   exportGlobals: true,
-                  localIdentName: '[name]__[local]--[hash:base64:5]',
+                  localIdentName: '[local]--[hash:base64:5]',
                 },
               },
             },

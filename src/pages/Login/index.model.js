@@ -1,7 +1,9 @@
+import { delay } from 'utils/helper';
+
 export default {
   name: 'bhz',
   changeName() {
-    this.name = 'zzz';
     console.log(this);
+    this.name = this.name + 1;
   },
 };

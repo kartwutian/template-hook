@@ -1,0 +1,12 @@
+import { delay } from 'utils/helper';
+import {  } from '<%=servicePath%>';
+
+const model<%= modelName%> = {
+  name: model<%= modelName%>,
+  changeName() {
+    console.log(this);
+    this.name = this.name + 1;
+  },
+}
+
+export default model<%= modelName%>;

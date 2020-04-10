@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import { Button, Table, Tag } from 'antd';
+import { useStore } from '@/store/index';
+import { observer, useLocalStore } from 'mobx-react';
 
 import styles from './index.less';
 
@@ -54,39 +56,56 @@ const columns = [
 ];
 
 function LoginPage() {
-  const [data, setData] = useState([
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-  ]);
+  // const curStore = useLocalStore(() => ({
+  //   data: [
+  //     {
+  //       key: '1',
+  //       name: 'John Brown',
+  //       age: 32,
+  //       address: 'New York No. 1 Lake Park',
+  //       tags: ['nice', 'developer'],
+  //     },
+  //   ],
+  //   addData() {
+  //     curStore.data = [
+  //       ...curStore.data,
+  //       {
+  //         key: '1',
+  //         name: 'John Brown',
+  //         age: 32,
+  //         address: 'New York No. 1 Lake Park',
+  //         tags: ['nice', 'developer'],
+  //       },
+  //     ];
+  //   },
+  // }));
+  // const [data, setData] = useState([
+  //   {
+  //     key: '1',
+  //     name: 'John Brown',
+  //     age: 32,
+  //     address: 'New York No. 1 Lake Park',
+  //     tags: ['nice', 'developer'],
+  //   },
+  // ]);
 
-  console.log(1);
+  const store = useStore('modelLogin');
+  console.log(store);
+  // const data = curStore.data;
+  // const addData = curStore.addData;
   return (
     <div>
       <Button
         styleName="bg"
         onClick={() => {
-          setData([
-            ...data,
-            {
-              key: '1',
-              name: 'John Brown',
-              age: 32,
-              address: 'New York No. 1 Lake Park',
-              tags: ['nice', 'developer'],
-            },
-          ]);
+          store.changeName();
         }}
       >
-        +++
+        {store.name}
       </Button>
-      <Table columns={columns} dataSource={data} />
+      {/* <Table columns={columns} dataSource={data} /> */}
     </div>
   );
 }
 
-export default CSSModules(LoginPage, styles);
+export default observer(CSSModules(LoginPage, styles));

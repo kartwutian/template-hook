@@ -6,14 +6,13 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "stylesheet/*": ["src/asset/stylesheet/*"],
-      "image/*": ["src/asset/image/*"],
+      "assets/*": ["src/assets/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
       "layout/*": ["src/layout/*"],
       "components/*": ["src/components/*"],
       "pages/*": ["src/pages/*"],
-      "constant/*": ["src/constant/*"]
+      "store/*": ["src/store/*"]
     }
   },
   "exclude": ["node_modules", "dist"],

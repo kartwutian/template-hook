@@ -21,14 +21,16 @@ const router = [
         "route": "/project/list",
         "routes": [],
         "path": "pages/Project/List",
-        "name": "项目列表"
+        "name": "项目列表",
+        "hasBread": true
       },
       {
         "route": "/project/Developing",
         "routes": [],
         "path": "pages/Project/Developing",
         "name": "项目开发",
-        "template": "list"
+        "template": "list",
+        "hasBread": true
       }
     ],
     "name": "项目"

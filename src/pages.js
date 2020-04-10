@@ -28,12 +28,14 @@ module.exports = {
       path: 'pages/Project/List',
       route: '/project/list',
       name: '项目列表',
+      hasBread: true,
     },
     {
       path: 'pages/Project/Developing',
       route: '/project/Developing',
       name: '项目开发',
       template: 'list',
+      hasBread: true,
     },
     // {
     //   path: 'pages/Home/Shop/Demo',

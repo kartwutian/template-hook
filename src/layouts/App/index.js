@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import CSSModules from 'react-css-modules';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { Layout, Tooltip, Dropdown, Menu } from 'antd';
+import { Layout, Tooltip, Dropdown, Menu, PageHeader } from 'antd';
 import {
   MenuFoldOutlined,
   LogoutOutlined,
@@ -11,6 +11,7 @@ import {
   UserAddOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import { useStore } from '@/store/index';
 import SiderMenu from './SiderMenu';
 
 import loginUtil from 'utils/login';
@@ -22,6 +23,8 @@ const { Header, Sider, Content, Footer } = Layout;
 const App = ({ children }) => {
   const [collapsed, setcollapsed] = useState(false);
   const userInfo = loginUtil.getUserInfo() || {};
+  const location = useLocation();
+  const globalStore = useStore('globalModel');
   const menu = (
     <Menu className="user-menu" selectedKeys={[]} onClick={handleMenuClick}>
       <Menu.Item key="userCenter">
@@ -46,6 +49,51 @@ const App = ({ children }) => {
   );
 
   const handleMenuClick = () => {};
+
+  const getBreadData = () => {
+    const { pathname } = location;
+    const { router } = globalStore;
+    const curPathArr = pathname.split('/').slice(1);
+    console.log(curPathArr);
+    let curRouter = router;
+    const breads = [];
+    curPathArr.reduce((prefix, next) => {
+      prefix = `${prefix}/${next}`;
+      console.log(prefix);
+      const curItem = curRouter.find((item) => item.route === prefix);
+      console.log(curItem);
+      if (curItem) {
+        breads.push(curItem);
+        curRouter = curItem.routes;
+      }
+      return prefix;
+    }, '');
+    return breads;
+  };
+
+  const renderSubHeader = () => {
+    const sourceData = getBreadData();
+    console.log(sourceData);
+    const routes =
+      sourceData.length > 1
+        ? sourceData.map((item) => {
+            return {
+              path: item.path ? item.route : './',
+              breadcrumbName: item.name,
+            };
+          })
+        : [];
+    const curRoute = sourceData[sourceData.length - 1];
+
+    return sourceData.length && curRoute.hasBread ? (
+      <PageHeader
+        ghost={false}
+        title={curRoute && curRoute.name}
+        breadcrumb={{ routes }}
+        subTitle={curRoute.subTitle || ''}
+      />
+    ) : null;
+  };
 
   return (
     <Layout>
@@ -77,7 +125,9 @@ const App = ({ children }) => {
             </span>
           </Dropdown>
         </Header>
+
         <Content>
+          {renderSubHeader()}
           <div styleName="app-layout__content">{children}</div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

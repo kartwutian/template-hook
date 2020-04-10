@@ -16,6 +16,24 @@ module.exports = {
       isInLayout: false, // 标记不包括layout
     },
     // {
+    //   path: 'pages/Home/index',
+    //   route: '/home',
+    //   name: '首页',
+    //   isInLayout: false, // 标记不包括layout
+    // },
+    // {
+    //   path: 'pages/Home/Shop/index',
+    //   route: '/home/shop',
+    //   name: 'shop',
+    //   isInLayout: false, // 标记不包括layout
+    // },
+    // {
+    //   path: 'pages/Home/Shop/Demo',
+    //   route: '/home/shop/demo',
+    //   name: 'demo',
+    //   isInLayout: false, // 标记不包括layout
+    // },
+    // {
     //   route: '/form', // 每一批path,代表不生成页面
     //   name: '表单页',
     // },

@@ -7,23 +7,28 @@ module.exports = (pages) => {
   }, {});
   const routes = Object.keys(routeMap);
 
+  const renderTree = (arr, rootNode, prefix) => {
+    const [first, ...rest] = arr;
+    rootNode.route = prefix ? `${prefix}/${first}` : `/${first}`;
+    rootNode.routes = [];
+    // 附加上原始数据信息
+    const curMeta = routeMap[rootNode.route] || {};
+    Object.keys(curMeta).forEach((prop) => {
+      rootNode[prop] = curMeta[prop];
+    });
+    const subNode = {};
+    if (rest.length) {
+      renderTree(rest, subNode, rootNode.route);
+    }
+    if (subNode.route) {
+      rootNode.routes.push(subNode);
+    }
+  };
+
   const parsePath = (path) => {
     const metaArr = path.split('/').slice(1);
-    const curRoute = metaArr.reduce((result, next) => {
-      const routePath = result.route ? `${result.route}/${next}` : `/${next}`;
-      const curMeta = routeMap[routePath] || {};
-      const meta = {
-        route: routePath,
-        routes: [],
-        ...curMeta,
-      };
-      if (result.routes) {
-        result.routes = [{ ...meta }];
-      } else {
-        result = { ...meta };
-      }
-      return result;
-    }, {});
+    const curRoute = {};
+    renderTree(metaArr, curRoute);
     return curRoute;
   };
 

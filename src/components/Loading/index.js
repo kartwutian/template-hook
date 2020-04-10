@@ -3,7 +3,6 @@ import cssModules from 'react-css-modules';
 import { Spin, Card } from 'antd';
 import styles from './index.less';
 
-@cssModules(styles)
 class Loading extends Component {
   render() {
     return (
@@ -16,4 +15,4 @@ class Loading extends Component {
   }
 }
 
-export default Loading;
+export default cssModules(Loading, styles);

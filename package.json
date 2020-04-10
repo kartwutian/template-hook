@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --hot --config config/webpack.config.dev.js"
+    "start": "webpack-dev-server --hot --config config/webpack.config.dev.js",
+    "g:pages": "node ./scripts/generatePages.js"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -13,6 +14,7 @@
     "autoprefixer": "^9.7.6",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.1",
+    "ejs": "^3.0.2",
     "error-overlay-webpack-plugin": "^0.4.1",
     "html-webpack-plugin": "^4.0.4",
     "less": "^3.11.1",
@@ -25,6 +27,7 @@
   },
   "dependencies": {
     "antd": "^4.1.1",
+    "axios": "^0.19.2",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "react": "^16.13.1",

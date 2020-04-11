@@ -9,6 +9,8 @@ module.exports = function () {
       rules: [
         {
           test: /\.js$/,
+          exclude: /node_modules/,
+          include: PATHS.src,
           use: 'Happypack/loader?id=js',
         },
         {

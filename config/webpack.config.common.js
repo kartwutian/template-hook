@@ -10,6 +10,38 @@ module.exports = function () {
           test: /\.js$/,
           use: ['babel-loader'],
         },
+        {
+          test: /\.json$/,
+          use: [
+            {
+              loader: 'json-loader',
+            },
+          ],
+        },
+        {
+          test: /\.(png|gif|jpg)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 10 * 1024,
+                name: path.normalize('assets/[name].[ext]'),
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(woff|woff2|ttf|eot|svg)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 10 * 1024,
+                name: path.normalize('assets/[name].[ext]'),
+              },
+            },
+          ],
+        },
       ],
     },
     plugins: [],

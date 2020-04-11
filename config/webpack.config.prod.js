@@ -34,7 +34,7 @@ module.exports = function () {
           test: /\.css$/, // css 没有模块化处理
           use: [
             {
-              loader: 'style-loader',
+              loader: MiniCssExtractPlugin.loader,
             },
             {
               loader: 'css-loader',
@@ -89,7 +89,6 @@ module.exports = function () {
       }),
       new webpack.DllReferencePlugin({ //引用动态链接库
         manifest: path.resolve(PATHS.dist, 'manifest.json')
-
       })
     ],
     devtool: 'cheap-module-source-map',

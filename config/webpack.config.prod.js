@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const merge = require('webpack-merge');
+const webpack =require('webpack')
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
 
@@ -12,7 +13,7 @@ module.exports = function () {
     module: {
       rules: [
         {
-          test: /(\.css$)|(\.less$)/,
+          test: /\.less$/,
           include: path.resolve(PATHS.src, 'assets/styles'), // 全局样式
           use: [
             {
@@ -33,7 +34,7 @@ module.exports = function () {
           test: /\.css$/, // css 没有模块化处理
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
+              loader: 'style-loader',
             },
             {
               loader: 'css-loader',
@@ -86,6 +87,10 @@ module.exports = function () {
       new HtmlWebpackPlugin({
         template: 'src/assets/template/index.html',
       }),
+      new webpack.DllReferencePlugin({ //引用动态链接库
+        manifest: path.resolve(PATHS.dist, 'manifest.json')
+
+      })
     ],
     devtool: 'cheap-module-source-map',
   });

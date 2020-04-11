@@ -40,7 +40,11 @@ const renderRouter = (routes) => {
               if (route.authority) {
                 isAuth = auth(route.authority);
               }
-              const Temp = lazy(() => import(`../../${route.path}`)); // 有变量的情况不能使用别名
+
+              const Temp = lazy(() => {
+                const relativePath = `../../${route.path}`
+                return import(`../../${route.path}`)
+              }); // 有变量的情况不能使用别名
               return isAuth ? (
                 <Suspense fallback={<Loading />}>
                   <div className="animated faster fadeInRight">

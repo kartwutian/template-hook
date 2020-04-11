@@ -1,4 +1,5 @@
 const path = require('path');
+const Happypack = require('happypack')
 const { PATHS } = require('./config');
 
 module.exports = function () {
@@ -8,7 +9,7 @@ module.exports = function () {
       rules: [
         {
           test: /\.js$/,
-          use: ['babel-loader'],
+          use: 'Happypack/loader?id=js',
         },
         {
           test: /\.json$/,
@@ -44,7 +45,12 @@ module.exports = function () {
         },
       ],
     },
-    plugins: [],
+    plugins: [
+      new Happypack({
+        id: 'js',
+        use: ['babel-loader']
+      }),
+    ],
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {

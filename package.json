@@ -20,6 +20,7 @@
     "ejs": "^3.0.2",
     "error-overlay-webpack-plugin": "^0.4.1",
     "file-loader": "^6.0.0",
+    "happypack": "^5.0.1",
     "html-webpack-plugin": "^4.0.4",
     "json-loader": "^0.5.7",
     "less": "^3.11.1",

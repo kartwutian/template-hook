@@ -1,6 +1,4 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const autoprefixer = require('autoprefixer');
 const Happypack = require('happypack');
 const { PATHS } = require('./config');
 
@@ -9,65 +7,6 @@ module.exports = function () {
     entry: './src/index.js',
     module: {
       rules: [
-        {
-          test: /(\.css$)|\.less$/, // 用happypack打包会报错，先不用了
-          include: [PATHS.node_modules, PATHS.global_styles], // 全局样式
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: 'css-loader',
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [autoprefixer('last 2 version')],
-                sourceMap: true,
-              },
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                javascriptEnabled: true,
-              },
-            },
-          ],
-        },
-        {
-          test: /(\.css$)|\.less$/, // less 模块化处理
-          exclude: [PATHS.node_modules, PATHS.global_styles],
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                sourceMap: true,
-                modules: {
-                  mode: 'local',
-                  exportGlobals: true,
-                  localIdentName: '[local]--[hash:base64:5]',
-                },
-              },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [autoprefixer('last 2 version')],
-                sourceMap: true,
-              },
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                javascriptEnabled: true,
-              },
-            },
-          ],
-        },
         {
           test: /\.js$/,
           exclude: /node_modules/,
@@ -113,12 +52,6 @@ module.exports = function () {
         id: 'js',
         threads: 4,
         use: ['babel-loader'],
-      }),
-      new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
-        filename: 'static/css/[name].[contenthash:8].css',
-        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       }),
     ],
     resolve: {

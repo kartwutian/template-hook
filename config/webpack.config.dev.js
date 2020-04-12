@@ -84,11 +84,11 @@ module.exports = function () {
     },
     plugins: [
       new ErrorOverlayPlugin(),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      }),
       new HtmlWebpackPlugin({
         template: 'src/assets/template/index.html',
+      }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV), // 页面里直接用process.env.NODE_ENV，注意不是挂在window对象上的
       }),
     ],
     devtool: 'cheap-module-source-map',

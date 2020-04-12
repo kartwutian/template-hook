@@ -11,6 +11,7 @@ module.exports = function () {
       publicPath,
     },
     module: {
+      noParse: '/react|react-dom|mobx|mobx-react|axios|react-css-modules|react-router-dom/',  // 不去解析三方库
       rules: [
         {
           test: /\.js$/,

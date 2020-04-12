@@ -2,10 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-// const webpack = require('webpack')
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
+
+// 设置环境变量
+process.env.NODE_ENV = 'development';
 
 module.exports = function () {
   return merge(commonConfig, {
@@ -81,6 +84,9 @@ module.exports = function () {
     },
     plugins: [
       new ErrorOverlayPlugin(),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      }),
       new HtmlWebpackPlugin({
         template: 'src/assets/template/index.html',
       }),

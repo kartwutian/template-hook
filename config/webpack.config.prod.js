@@ -8,6 +8,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
 
+// 设置环境变量
+process.env.NODE_ENV = 'production';
+
 module.exports = function () {
   return merge(commonConfig, {
     mode: 'production',
@@ -77,6 +80,9 @@ module.exports = function () {
     plugins: [
       new HtmlWebpackPlugin({
         template: 'src/assets/template/index.html',
+      }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output

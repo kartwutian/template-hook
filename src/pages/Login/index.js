@@ -17,6 +17,7 @@ function LoginPage() {
     history.push('/home');
   };
   const onFinishFailed = () => {};
+  console.log(window['process.env.NODE_ENV']);
   return (
     <div styleName="page">
       <div styleName="content">

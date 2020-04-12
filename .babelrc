@@ -1,4 +1,4 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
-  "plugins": [["import", { "libraryName": "antd" }]]
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+  // "plugins": [["import", { "libraryName": "antd" }]] // 有毒, 用了之后打包体积更大，不用，默认已经按需打包了
 }

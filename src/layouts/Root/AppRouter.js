@@ -40,9 +40,9 @@ const renderRouter = (routes) => {
               if (route.authority) {
                 isAuth = auth(route.authority);
               }
-              const pathSuffix = route.path.split('/').slice(1).join('/')
+              const pathSuffix = route.path.split('/').slice(1).join('/');
               // webpack require 的地址会被转为正则，详见https://blog.csdn.net/weixin_33738555/article/details/88766052
-              const Temp = lazy(() => import(`pages/${pathSuffix}`));
+              const Temp = lazy(() => import('pages/' + pathSuffix));
               return isAuth ? (
                 <Suspense fallback={<Loading />}>
                   <div className="animated faster fadeInRight">

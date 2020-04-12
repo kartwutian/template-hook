@@ -6,6 +6,10 @@ const autoprefixer = require('autoprefixer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 导入样式压缩
+let OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
+// 压缩js
+let UglifyjsPlugin =  require('uglifyjs-webpack-plugin');
 
 const commonConfig = require('./webpack.config.common')();
 const { PATHS, publicPath } = require('./config');
@@ -16,6 +20,16 @@ process.env.NODE_ENV = 'production';
 module.exports = function () {
   return merge(commonConfig, {
     mode: 'production',
+    // 压缩 model 必须是production才有效果
+    optimization: {
+      minimizer: [
+        new UglifyjsPlugin({
+            // 使用缓存
+            cache: true
+        }),
+        new OptimizeCssPlugin()
+      ]
+    },
     module: {
       rules: [
         {

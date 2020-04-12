@@ -34,6 +34,7 @@ function LoginPage() {
             </Link>
           </div>
           <div styleName="desc">万博通用后台管理系统模板</div>
+          <img src={`${__PUBLIC_PATH__}logo.png`} />
         </div>
         <div styleName="login">
           <Form

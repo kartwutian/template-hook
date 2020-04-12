@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     filename: '__dll__[name].js',
-    path: PATHS.vendors,
+    path: PATHS.dll,
     library: '__dll__[name]',
   },
   plugins: [
@@ -27,7 +27,7 @@ module.exports = {
     }),
     new webpack.DllPlugin({
       name: '__dll__[name]',
-      path: path.resolve(PATHS.vendors, 'manifest.[name].json'),
+      path: path.resolve(PATHS.dll, 'manifest.[name].json'),
     }),
   ],
 };

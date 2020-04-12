@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
     <style>
       html,
       body,
@@ -12,9 +12,9 @@
         min-width: 1200px;
       }
     </style>
-    <script src="vendors/__dll__mobx.js"></script>
-    <script src="vendors/__dll__react.js"></script>
-    <script src="vendors/__dll__moment_axios.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.dll.react %>"></script>
+    <script src="<%= htmlWebpackPlugin.options.dll.mobx %>"></script>
+    <script src="<%= htmlWebpackPlugin.options.dll.moment_axios %>"></script>
   </head>
   <body>
     <div id="root"></div>

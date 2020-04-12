@@ -7,12 +7,29 @@ const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
 
+const publicPath = '/'; // 开发时统一publicPath为 '/'
+
 // 设置环境变量
 process.env.NODE_ENV = 'development';
 
 module.exports = function () {
   return merge(commonConfig, {
     mode: 'development',
+    entry: './src/index.js',
+    output: {
+      filename: '[name].[hash:5].js',
+      path: PATHS.distDev,
+      publicPath,
+    },
+    devServer: {
+      contentBase: [path.resolve(PATHS.src, 'public'), PATHS.dll],
+      historyApiFallback: true,
+      compress: true,
+      hot: true,
+      inline: true,
+      disableHostCheck: true,
+      publicPath,
+    },
     module: {
       rules: [
         {
@@ -85,10 +102,30 @@ module.exports = function () {
     plugins: [
       new ErrorOverlayPlugin(),
       new HtmlWebpackPlugin({
+        title: '万博后台管理模板',
         template: 'src/assets/template/index.html',
+        filename: 'index.html',
+        dll: {
+          react: `${publicPath}__dll__react.js`,
+          mobx: `${publicPath}__dll__mobx.js`,
+          moment_axios: `${publicPath}__dll__moment_axios.js`,
+        },
       }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV), // 页面里直接用process.env.NODE_ENV，注意不是挂在window对象上的
+        __PUBLIC_PATH__: JSON.stringify(publicPath), // publicPath 注入
+      }),
+      new webpack.DllReferencePlugin({
+        //引用动态链接库
+        manifest: path.resolve(PATHS.dll, 'manifest.react.json'),
+      }),
+      new webpack.DllReferencePlugin({
+        //引用动态链接库
+        manifest: path.resolve(PATHS.dll, 'manifest.mobx.json'),
+      }),
+      new webpack.DllReferencePlugin({
+        //引用动态链接库
+        manifest: path.resolve(PATHS.dll, 'manifest.moment_axios.json'),
       }),
     ],
     devtool: 'cheap-module-source-map',

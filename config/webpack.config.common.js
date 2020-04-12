@@ -1,10 +1,15 @@
 const path = require('path');
 const Happypack = require('happypack');
-const { PATHS } = require('./config');
+const { PATHS, publicPath } = require('./config');
 
 module.exports = function () {
   return {
     entry: './src/index.js',
+    output: {
+      filename: '[name].[hash:5].js',
+      path: PATHS.dist,
+      publicPath,
+    },
     module: {
       rules: [
         {

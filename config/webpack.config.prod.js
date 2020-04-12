@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const merge = require('webpack-merge');
-const webpack =require('webpack')
+const webpack = require('webpack');
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
 
@@ -87,9 +87,18 @@ module.exports = function () {
       new HtmlWebpackPlugin({
         template: 'src/assets/template/index.html',
       }),
-      new webpack.DllReferencePlugin({ //引用动态链接库
-        manifest: path.resolve(PATHS.dist, 'manifest.json')
-      })
+      new webpack.DllReferencePlugin({
+        //引用动态链接库
+        manifest: path.resolve(PATHS.vendors, 'manifest.react.json'),
+      }),
+      new webpack.DllReferencePlugin({
+        //引用动态链接库
+        manifest: path.resolve(PATHS.vendors, 'manifest.mobx.json'),
+      }),
+      new webpack.DllReferencePlugin({
+        //引用动态链接库
+        manifest: path.resolve(PATHS.vendors, 'manifest.moment_axios.json'),
+      }),
     ],
     devtool: 'cheap-module-source-map',
   });

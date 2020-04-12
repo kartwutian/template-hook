@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dll": "webpack --config ./config/webpack.config.vendors.js",
+    "dll": "webpack --config ./config/webpack.config.dll.js ",
     "start": "webpack-dev-server --hot --config config/webpack.config.dev.js",
     "build": "webpack --progress --config config/webpack.config.prod.js",
     "g:pages": "node ./scripts/generatePages.js"

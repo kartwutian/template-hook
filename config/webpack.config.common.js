@@ -1,5 +1,5 @@
 const path = require('path');
-const Happypack = require('happypack')
+const Happypack = require('happypack');
 const { PATHS } = require('./config');
 
 module.exports = function () {
@@ -13,14 +13,14 @@ module.exports = function () {
           include: PATHS.src,
           use: 'Happypack/loader?id=js',
         },
-        {
-          test: /\.json$/,
-          use: [
-            {
-              loader: 'json-loader',
-            },
-          ],
-        },
+        // {
+        //   test: /\.json$/,
+        //   use: [
+        //     {
+        //       loader: 'json-loader',
+        //     },
+        //   ],
+        // },
         {
           test: /\.(png|gif|jpg)$/,
           use: [
@@ -50,7 +50,8 @@ module.exports = function () {
     plugins: [
       new Happypack({
         id: 'js',
-        use: ['babel-loader']
+        threads: 4,
+        use: ['babel-loader'],
       }),
     ],
     resolve: {

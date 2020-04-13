@@ -105,6 +105,7 @@ module.exports = function () {
         title: '万博后台管理模板',
         template: 'src/assets/template/index.html',
         filename: 'index.html',
+        publicPath,
         dll: {
           react: `${publicPath}__dll__react.js`,
           mobx: `${publicPath}__dll__mobx.js`,

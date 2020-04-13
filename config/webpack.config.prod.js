@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // 导入样式压缩
 let OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 // 压缩js
-let UglifyjsPlugin =  require('uglifyjs-webpack-plugin');
+let UglifyjsPlugin = require('uglifyjs-webpack-plugin');
 
 const commonConfig = require('./webpack.config.common')();
 const { PATHS, publicPath } = require('./config');
@@ -24,11 +24,11 @@ module.exports = function () {
     optimization: {
       minimizer: [
         new UglifyjsPlugin({
-            // 使用缓存
-            cache: true
+          // 使用缓存
+          cache: true,
         }),
-        new OptimizeCssPlugin()
-      ]
+        new OptimizeCssPlugin(),
+      ],
     },
     module: {
       rules: [
@@ -99,6 +99,7 @@ module.exports = function () {
         title: '万博后台管理模板',
         template: 'src/assets/template/index.html',
         filename: path.resolve(PATHS.dist, 'index.html'),
+        publicPath,
         dll: {
           react: `${publicPath}vendors/__dll__react.js`,
           mobx: `${publicPath}vendors/__dll__mobx.js`,

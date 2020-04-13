@@ -98,6 +98,7 @@
       template: ejs.render(templatePage.toString(), {
         modelName,
         stylePath: `./${filename}.less`,
+        servicePath: `./_service.${serviceName}.js`,
         config: pageConfig,
       }),
     });

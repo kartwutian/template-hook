@@ -6,8 +6,10 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
+const {webpack: webpackConfig} = require('../src/pages.js');
 
 const publicPath = '/'; // 开发时统一publicPath为 '/'
+const htmlWebpackPluginOptionsExtend = webpackConfig ? webpackConfig.htmlWebpackPlugin || {} : {};
 
 // 设置环境变量
 process.env.NODE_ENV = 'development';
@@ -29,6 +31,7 @@ module.exports = function () {
       inline: true,
       disableHostCheck: true,
       publicPath,
+      proxy: webpackConfig &&  webpackConfig.proxy ? webpackConfig.proxy : {},
     },
     module: {
       rules: [
@@ -111,6 +114,7 @@ module.exports = function () {
           mobx: `${publicPath}__dll__mobx.js`,
           moment_axios: `${publicPath}__dll__moment_axios.js`,
         },
+        ...htmlWebpackPluginOptionsExtend,
       }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV), // 页面里直接用process.env.NODE_ENV，注意不是挂在window对象上的

@@ -13,6 +13,9 @@ let UglifyjsPlugin = require('uglifyjs-webpack-plugin');
 
 const commonConfig = require('./webpack.config.common')();
 const { PATHS, publicPath } = require('./config');
+const {webpack: webpackConfig} = require('../src/pages.js');
+
+const htmlWebpackPluginOptionsExtend = webpackConfig ? webpackConfig.htmlWebpackPlugin || {} : {};
 
 // 设置环境变量
 process.env.NODE_ENV = 'production';
@@ -105,6 +108,7 @@ module.exports = function () {
           mobx: `${publicPath}vendors/__dll__mobx.js`,
           moment_axios: `${publicPath}vendors/__dll__moment_axios.js`,
         },
+        ...htmlWebpackPluginOptionsExtend,
       }),
       new CopyPlugin([
         {

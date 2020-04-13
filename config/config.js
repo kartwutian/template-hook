@@ -1,6 +1,7 @@
 const path = require('path');
+const {webpack: webpackConfig} = require('../src/pages.js');
 
-const publicPath = '/prefix/'; // 只用在生产环境，开发环境统一'/'
+const publicPath = (webpackConfig && webpackConfig.publicPath) || '/'; // 只用在生产环境，开发环境统一'/'
 
 module.exports = {
   publicPath,

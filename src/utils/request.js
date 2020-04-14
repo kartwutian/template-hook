@@ -20,14 +20,14 @@ const codeMessage = {
   500: '服务器发生错误，请检查服务器。',
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。'
+  504: '网关超时。',
 };
 
 // axios 配置
 axios.defaults.timeout = 30000;
 // 通过注入的环境变量判断代码执行环境做不同的配置
 // eslint-disable-next-line no-undef
-if (process.env.API === 'development') {
+if (process.env.NODE_ENV === 'development') {
   // http://rap2api.taobao.org/app/mock/121297/${config.method}
   // axios.defaults.baseURL = '/proxy'; // 这是本地调用路径前缀
 } else {
@@ -49,15 +49,15 @@ export default function request(url, options) {
       ? {
           'x-requested-with': 'XMLHttpRequest',
           'Content-Type': 'application/json',
-          ...options.headers
+          ...options.headers,
         }
       : {
           'x-requested-with': 'XMLHttpRequest',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-    data: options && options.data
+    data: options && options.data,
   })
-    .then(res => {
+    .then((res) => {
       if (res.status !== 200) {
         // 处理为2xx但非200的错误请求的message
         const error = new Error(codeMessage[res.status]);
@@ -67,7 +67,7 @@ export default function request(url, options) {
       } else if (res.data && res.data.code !== SUCCESS_CODE) {
         // 处理状态为200的错误提示message
         const error = new Error(
-          (res.data && res.data.msg) || '返回数据结构异常'
+          (res.data && res.data.msg) || '返回数据结构异常',
         );
         error.status = res.status;
         error.response = res;
@@ -76,7 +76,7 @@ export default function request(url, options) {
         return Promise.resolve(res.data);
       }
     })
-    .catch(async error => {
+    .catch(async (error) => {
       console.dir(error);
       if (error.response) {
         // 处理有response的请求错误

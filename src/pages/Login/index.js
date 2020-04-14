@@ -9,11 +9,15 @@ import styles from './index.less';
 
 function LoginPage() {
   const store = useStore('modelLogin');
+  const globalStore = useStore('globalModel');
   const localStore = useLocalStore(() => ({}));
   const history = useHistory();
   const formRef = useRef(null);
   const handleSubmit = (values) => {
     message.success('登录成功');
+    globalStore.commit({
+      USER_INFO: { name: 'susan' },
+    });
     history.push('/home');
   };
   const onFinishFailed = () => {};

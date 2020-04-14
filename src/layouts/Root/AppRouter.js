@@ -1,12 +1,12 @@
 import React, { lazy, Suspense } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createHashHistory } from 'history';
+import { observer } from 'mobx-react';
 import { useStore } from '@/store/index';
 import Loading from 'components/Loading';
 import Exception from 'components/Exception/index.js';
 import App from 'layouts/App/index';
 
-import loginUtil from 'utils/login';
 import auth from 'utils/auth';
 
 // /**
@@ -69,7 +69,7 @@ const renderRouter = (routes) => {
   return children;
 };
 
-export default function AppRouter() {
+function AppRouter() {
   const globalStore = useStore('globalModel');
 
   const routerOut = globalStore.router.filter(
@@ -85,7 +85,7 @@ export default function AppRouter() {
       <>
         <Switch>
           {renderRouter(routerOut)}
-          {loginUtil.isLogin() ? (
+          {globalStore.USER_INFO ? (
             <App>
               <Switch>
                 {renderRouter(routerInner)}
@@ -115,3 +115,5 @@ export default function AppRouter() {
     </Router>
   );
 }
+
+export default observer(AppRouter);

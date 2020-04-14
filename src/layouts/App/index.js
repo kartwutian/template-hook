@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CSSModules from 'react-css-modules';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Layout, Tooltip, Dropdown, Menu, PageHeader } from 'antd';
 import {
@@ -14,16 +14,14 @@ import {
 import { useStore } from '@/store/index';
 import SiderMenu from './SiderMenu';
 
-import loginUtil from 'utils/login';
-
 import styles from './index.less';
 
 const { Header, Sider, Content, Footer } = Layout;
 
 const App = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const userInfo = loginUtil.getUserInfo() || {};
   const location = useLocation();
+  const history = useHistory();
   const globalStore = useStore('globalModel');
   const menu = (
     <Menu className="user-menu" selectedKeys={[]} onClick={handleMenuClick}>
@@ -41,7 +39,13 @@ const App = ({ children }) => {
         </Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="logout">
+      <Menu.Item
+        key="logout"
+        onClick={() => {
+          history.push('/logout');
+          globalStore.logout();
+        }}
+      >
         <LogoutOutlined />
         退出登录
       </Menu.Item>
@@ -103,17 +107,23 @@ const App = ({ children }) => {
       <Layout>
         <Header>
           <div styleName="header-item">
-            {
-              collapsed ? (
-                <MenuUnfoldOutlined styleName="icon-size--primary" onClick={()=>{
-                  console.log(1)
-                  setCollapsed(false)
-                }} />
-              ) : (<MenuFoldOutlined styleName="icon-size--primary" onClick={()=>{
-                console.log(2)
-                setCollapsed(true)
-              }} />)
-            }
+            {collapsed ? (
+              <MenuUnfoldOutlined
+                styleName="icon-size--primary"
+                onClick={() => {
+                  console.log(1);
+                  setCollapsed(false);
+                }}
+              />
+            ) : (
+              <MenuFoldOutlined
+                styleName="icon-size--primary"
+                onClick={() => {
+                  console.log(2);
+                  setCollapsed(true);
+                }}
+              />
+            )}
             {collapsed}
           </div>
           <div styleName="header-item--main"></div>
@@ -140,12 +150,11 @@ const App = ({ children }) => {
                       // src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
                       alt="avatar"
                     /> */}
-                <span>{userInfo.name}</span>
+                <span>{globalStore.USER_INFO.name}</span>
               </span>
             </Dropdown>
           </div>
-
-          </Header>
+        </Header>
 
         <Content>
           {renderSubHeader()}

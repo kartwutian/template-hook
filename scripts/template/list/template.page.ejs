@@ -80,4 +80,6 @@ function <%= modelName%>Page() {
   );
 }
 
-export default observer(CSSModules(<%= modelName%>Page, styles));
+export default observer(CSSModules(<%= modelName%>Page, styles, {
+  allowMultiple: true,
+}));

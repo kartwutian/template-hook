@@ -21,4 +21,3 @@ function ProjectListPage() {
 }
 
 export default observer(CSSModules(ProjectListPage, styles));
-

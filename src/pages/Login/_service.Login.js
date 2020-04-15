@@ -1,6 +1,5 @@
 import request from '../../utils/request';
 
-
 export function getDemo(params) {
   return request(
     '/api/ftts/user/login',

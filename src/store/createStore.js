@@ -4,7 +4,6 @@ import modelHome from '../pages/Home/index.model';
 import modelProjectList from '../pages/Project/List.model';
 import modelProjectDeveloping from '../pages/Project/Developing.model';
 
-
 export const createStore = () => ({
   // note the use of this which refers to observable instance of the store
   globalModel,
@@ -12,5 +11,4 @@ export const createStore = () => ({
   modelHome,
   modelProjectList,
   modelProjectDeveloping,
-
 });

@@ -1,4 +1,4 @@
-export default roles => {
+export default (roles) => {
   const auth = window.localStorage.getItem('authority');
   // 支持字符
   if (typeof roles === 'string') {

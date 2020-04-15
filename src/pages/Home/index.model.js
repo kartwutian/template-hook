@@ -1,5 +1,5 @@
 import { delay } from 'utils/helper';
-import {  } from './_service.Home.js';
+import {} from './_service.Home.js';
 
 const modelHome = {
   name: 'modelHome',
@@ -7,6 +7,6 @@ const modelHome = {
     console.log(this);
     this.name = this.name + 1;
   },
-}
+};
 
 export default modelHome;

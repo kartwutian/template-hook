@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { lazy, Suspense } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createHashHistory } from 'history';

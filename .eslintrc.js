@@ -20,5 +20,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'import/no-unresolved': 0,
     'object-curly-newline': 1,
+    'react/display-name': 0,
+    'react/prop-types': 1,
   },
 };

@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --progress --hot --config config/webpack.config.dev.js",
     "build": "webpack --progress --config config/webpack.config.prod.js",
     "g:pages": "node ./scripts/generatePages.js",
-    "eslinit:fix": "eslint --fix"
+    "eslinit:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx ./src"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

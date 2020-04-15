@@ -4,7 +4,7 @@
  * @returns {Promise<any>}
  */
 export const delay = (timeout = 0.3) =>
-  new Promise(resolve => setTimeout(resolve, timeout * 1000));
+  new Promise((resolve) => setTimeout(resolve, timeout * 1000));
 
 /**
  * 讲枚举数组转化为枚举对象
@@ -16,8 +16,8 @@ export const exchangeToEnum = (
   arr = [],
   options = {
     key: 'id',
-    val: 'name'
-  }
+    val: 'name',
+  },
 ) => {
   if (!Array.isArray(arr)) {
     console.error('第一个参数必须为数组');

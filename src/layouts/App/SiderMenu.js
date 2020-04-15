@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Menu } from 'antd';
-import {useStore} from '@/store/index'
+import { useStore } from '@/store/index';
 // import { MenuFoldOutlined } from '@ant-design/icons';
 import auth from 'utils/auth';
 
@@ -47,12 +47,12 @@ const renderMenus = (routes) => {
   });
 };
 
-function SiderMenu(props){
-  const {collapsed} = props;
+function SiderMenu(props) {
+  const { collapsed } = props;
   const globalStore = useStore('globalModel');
   const history = useHistory();
   const location = useLocation();
-  console.log(collapsed)
+  console.log(collapsed);
   // const handleMenuClick = ({ key }) => {
 
   //   if (key === '/project') {

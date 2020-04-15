@@ -1,14 +1,15 @@
 module.exports = {
-  webpack: { //存放需要变动的webpack的配置参数
+  webpack: {
+    //存放需要变动的webpack的配置参数
     publicPath: '/demo/', // 打包时候的前缀配置，注意一定要/开头，/结尾，因为我偷懒了,不会用在开发环境
     htmlWebpackPlugin: {
       title: 'template-admin',
     }, // html-webpack-plugin 的配置参数，主要可以用来配置title及其meta
     proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        pathRewrite: {"^/api" : ""}
-      }
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
     }, // 开发时候的代理配置
   },
   pages: [

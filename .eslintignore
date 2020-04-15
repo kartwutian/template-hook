@@ -1,3 +1,2 @@
 node_modules/*
 **/vendors/*.js
-src/layouts/Root/AppRouter.js

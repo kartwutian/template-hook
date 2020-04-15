@@ -1,10 +1,20 @@
+/* eslint-disable react/prop-types */
 import React, { createElement } from 'react';
 import classNames from 'classnames';
 import { Button } from 'antd';
 import config from './typeConfig';
 import styles from './index.less';
 
-const Exception = ({ className, linkElement = 'a', type, title, desc, img, actions, ...rest }) => {
+const Exception = ({
+  className,
+  linkElement = 'a',
+  type,
+  title,
+  desc,
+  img,
+  actions,
+  ...rest
+}) => {
   const pageType = type in config ? type : '404';
   const clsString = classNames(styles.exception, className);
   return (
@@ -26,7 +36,7 @@ const Exception = ({ className, linkElement = 'a', type, title, desc, img, actio
                 to: '/',
                 href: '/',
               },
-              <Button type="primary">返回首页</Button>
+              <Button type="primary">返回首页</Button>,
             )}
         </div>
       </div>

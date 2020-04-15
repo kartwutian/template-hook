@@ -6,10 +6,12 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
 const { PATHS } = require('./config');
-const {webpack: webpackConfig} = require('../src/pages.js');
+const { webpack: webpackConfig } = require('../src/pages.js');
 
 const publicPath = '/'; // 开发时统一publicPath为 '/'
-const htmlWebpackPluginOptionsExtend = webpackConfig ? webpackConfig.htmlWebpackPlugin || {} : {};
+const htmlWebpackPluginOptionsExtend = webpackConfig
+  ? webpackConfig.htmlWebpackPlugin || {}
+  : {};
 
 // 设置环境变量
 process.env.NODE_ENV = 'development';
@@ -31,10 +33,17 @@ module.exports = function () {
       inline: true,
       disableHostCheck: true,
       publicPath,
-      proxy: webpackConfig &&  webpackConfig.proxy ? webpackConfig.proxy : {},
+      proxy: webpackConfig && webpackConfig.proxy ? webpackConfig.proxy : {},
     },
     module: {
       rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          include: PATHS.src,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+        },
         {
           // 使用MiniCssExtractPlugin样式无法热更新，所以开发用style-loader，注意样式打包逻辑一致
           test: /\.less$/,

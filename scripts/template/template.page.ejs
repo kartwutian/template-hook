@@ -4,16 +4,16 @@ import { observer, useLocalStore } from 'mobx-react';
 import {} from 'antd';
 import { useStore } from '@/store/index';
 import { delay } from 'utils/helper';
-import {  } from '<%=servicePath%>';
+import {} from '<%=servicePath%>';
 
 import styles from '<%= stylePath%>';
 
 function <%= modelName%>Page() {
-  // const localStore = useLocalStore(() => ({
-  // }));
+  const localStore = useLocalStore(() => ({
+  }));
 
-  const store = useStore('model<%= modelName%>'); // 注意store里面的数据不要使用解构赋值
-  console.log(store);
+  // const store = useStore('model<%= modelName%>'); // 注意store里面的数据不要使用解构赋值
+  // console.log(store);
 
   return (
     <div styleName="page">
@@ -22,7 +22,8 @@ function <%= modelName%>Page() {
   );
 }
 
-export default observer(CSSModules(<%= modelName%>Page, styles, {
-  allowMultiple: true,
-}));
-
+export default observer(
+  CSSModules(<%= modelName%>Page, styles, {
+    allowMultiple: true,
+  }),
+);

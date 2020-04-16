@@ -60,8 +60,8 @@ function <%= modelName%>Page() {
     },
   ];
 
-  const store = useStore('model<%= modelName%>'); // 注意store里面的数据不要使用解构赋值
-  console.log(store);
+  // const store = useStore('model<%= modelName%>'); // 注意store里面的数据不要使用解构赋值
+  // console.log(store);
 
   return (
     <>
@@ -80,6 +80,8 @@ function <%= modelName%>Page() {
   );
 }
 
-export default observer(CSSModules(<%= modelName%>Page, styles, {
-  allowMultiple: true,
-}));
+export default observer(
+  CSSModules(<%= modelName%>Page, styles, {
+    allowMultiple: true,
+  }),
+);

@@ -1,20 +1,10 @@
 const path = require('path');
-const { PATHS } = require('./config');
+const { PATHS, DLL_ENTRY } = require('./config');
 const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
-  entry: {
-    mobx: ['mobx'],
-    react: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      'react-css-modules',
-      'mobx-react',
-    ],
-    moment_axios: ['axios', 'moment'],
-  },
+  entry: DLL_ENTRY,
   output: {
     filename: '__dll__[name].js',
     path: PATHS.dll,

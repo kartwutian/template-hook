@@ -1,7 +1,8 @@
 const path = require('path');
-const {webpack: webpackConfig} = require('../src/pages.js');
+const { webpack: webpackConfig } = require('../src/pages.js');
 
 const publicPath = (webpackConfig && webpackConfig.publicPath) || '/'; // 只用在生产环境，开发环境统一'/'
+const DLL_ENTRY_EXTEND = (webpackConfig && webpackConfig.dll) || {}; // 用来扩展dll 打包的文件
 
 module.exports = {
   publicPath,
@@ -13,5 +14,18 @@ module.exports = {
     global_styles: path.resolve(__dirname, '../src/assets/styles'),
     node_modules: path.resolve(__dirname, '../node_modules'),
     dll: path.resolve(__dirname, '../__DLL__'),
+  },
+  DLL_ENTRY: {
+    // 动态链接库入口配置
+    mobx: ['mobx'],
+    react: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'react-css-modules',
+      'mobx-react',
+    ],
+    moment_axios: ['axios', 'moment'],
+    ...DLL_ENTRY_EXTEND,
   },
 };

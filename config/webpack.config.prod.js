@@ -12,13 +12,22 @@ let OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 let UglifyjsPlugin = require('uglifyjs-webpack-plugin');
 
 const commonConfig = require('./webpack.config.common')();
-const { PATHS, publicPath } = require('./config');
-const {webpack: webpackConfig} = require('../src/pages.js');
+const { PATHS, publicPath, DLL_ENTRY } = require('./config');
+const { webpack: webpackConfig } = require('../src/pages.js');
 
-const htmlWebpackPluginOptionsExtend = webpackConfig ? webpackConfig.htmlWebpackPlugin || {} : {};
+const htmlWebpackPluginOptionsExtend = webpackConfig
+  ? webpackConfig.htmlWebpackPlugin || {}
+  : {};
 
 // 设置环境变量
 process.env.NODE_ENV = 'production';
+
+const DllReferencePlugins = Object.keys(DLL_ENTRY).map((name) => {
+  return new webpack.DllReferencePlugin({
+    //引用动态链接库
+    manifest: path.resolve(PATHS.dll, `manifest.${name}.json`),
+  });
+});
 
 module.exports = function () {
   return merge(commonConfig, {
@@ -132,18 +141,7 @@ module.exports = function () {
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       }),
-      new webpack.DllReferencePlugin({
-        //引用动态链接库
-        manifest: path.resolve(PATHS.dll, 'manifest.react.json'),
-      }),
-      new webpack.DllReferencePlugin({
-        //引用动态链接库
-        manifest: path.resolve(PATHS.dll, 'manifest.mobx.json'),
-      }),
-      new webpack.DllReferencePlugin({
-        //引用动态链接库
-        manifest: path.resolve(PATHS.dll, 'manifest.moment_axios.json'),
-      }),
+      ...DllReferencePlugins,
     ],
     devtool: 'cheap-module-source-map',
   });

@@ -5,7 +5,7 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
-const { PATHS } = require('./config');
+const { PATHS, DLL_ENTRY } = require('./config');
 const { webpack: webpackConfig } = require('../src/pages.js');
 
 const publicPath = '/'; // 开发时统一publicPath为 '/'
@@ -15,6 +15,13 @@ const htmlWebpackPluginOptionsExtend = webpackConfig
 
 // 设置环境变量
 process.env.NODE_ENV = 'development';
+
+const DllReferencePlugins = Object.keys(DLL_ENTRY).map((name) => {
+  return new webpack.DllReferencePlugin({
+    //引用动态链接库
+    manifest: path.resolve(PATHS.dll, `manifest.${name}.json`),
+  });
+});
 
 module.exports = function () {
   return merge(commonConfig, {
@@ -129,18 +136,7 @@ module.exports = function () {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV), // 页面里直接用process.env.NODE_ENV，注意不是挂在window对象上的
         __PUBLIC_PATH__: JSON.stringify(publicPath), // publicPath 注入
       }),
-      new webpack.DllReferencePlugin({
-        //引用动态链接库
-        manifest: path.resolve(PATHS.dll, 'manifest.react.json'),
-      }),
-      new webpack.DllReferencePlugin({
-        //引用动态链接库
-        manifest: path.resolve(PATHS.dll, 'manifest.mobx.json'),
-      }),
-      new webpack.DllReferencePlugin({
-        //引用动态链接库
-        manifest: path.resolve(PATHS.dll, 'manifest.moment_axios.json'),
-      }),
+      ...DllReferencePlugins,
     ],
     devtool: 'cheap-module-source-map',
   });

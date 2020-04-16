@@ -112,11 +112,9 @@ module.exports = function () {
         template: 'src/assets/template/index.html',
         filename: path.resolve(PATHS.dist, 'index.html'),
         publicPath,
-        dll: {
-          react: `${publicPath}vendors/__dll__react.js`,
-          mobx: `${publicPath}vendors/__dll__mobx.js`,
-          moment_axios: `${publicPath}vendors/__dll__moment_axios.js`,
-        },
+        dll: Object.keys(DLL_ENTRY).map((name) => {
+          return `${publicPath}__dll__${name}.js`;
+        }),
         ...htmlWebpackPluginOptionsExtend,
       }),
       new CopyPlugin([

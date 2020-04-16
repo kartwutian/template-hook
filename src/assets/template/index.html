@@ -16,9 +16,9 @@
         min-width: 1200px;
       }
     </style>
-    <script src="<%= htmlWebpackPlugin.options.dll.react %>"></script>
-    <script src="<%= htmlWebpackPlugin.options.dll.mobx %>"></script>
-    <script src="<%= htmlWebpackPlugin.options.dll.moment_axios %>"></script>
+    <% for (var key in htmlWebpackPlugin.options.dll) { %>
+    <script src="<%= htmlWebpackPlugin.options.dll[key] %>"></script>
+    <% } %>
   </head>
   <body>
     <div id="root"></div>

@@ -125,11 +125,9 @@ module.exports = function () {
         template: 'src/assets/template/index.html',
         filename: 'index.html',
         publicPath,
-        dll: {
-          react: `${publicPath}__dll__react.js`,
-          mobx: `${publicPath}__dll__mobx.js`,
-          moment_axios: `${publicPath}__dll__moment_axios.js`,
-        },
+        dll: Object.keys(DLL_ENTRY).map((name) => {
+          return `${publicPath}__dll__${name}.js`;
+        }),
         ...htmlWebpackPluginOptionsExtend,
       }),
       new webpack.DefinePlugin({

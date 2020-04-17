@@ -81,6 +81,7 @@ module.exports = function () {
               options: {
                 importLoaders: 1,
                 sourceMap: true,
+                publicPath,
                 modules: {
                   mode: 'local',
                   exportGlobals: true,

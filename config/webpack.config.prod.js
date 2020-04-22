@@ -114,7 +114,7 @@ module.exports = function () {
         filename: path.resolve(PATHS.dist, 'index.html'),
         publicPath,
         dll: Object.keys(DLL_ENTRY).map((name) => {
-          return `${publicPath}__dll__${name}.js`;
+          return `${publicPath}vendors/__dll__${name}.js`;
         }),
         ...htmlWebpackPluginOptionsExtend,
       }),

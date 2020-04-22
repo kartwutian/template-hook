@@ -81,12 +81,17 @@ module.exports = function () {
               options: {
                 importLoaders: 1,
                 sourceMap: true,
-                publicPath,
                 modules: {
                   mode: 'local',
                   exportGlobals: true,
                   localIdentName: '[local]--[hash:base64:5]',
                 },
+              },
+            },
+            {
+              loader: 'resolve-url-loader',
+              options: {
+                root: PATHS.public,
               },
             },
             {

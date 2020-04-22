@@ -29,6 +29,7 @@ function LoginPage() {
         <div styleName="top">
           <div styleName="header">
             <Link to="/">
+              <div styleName="bg-test"></div>
               <img
                 styleName="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"

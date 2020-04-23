@@ -11,13 +11,14 @@ module.exports = function () {
       publicPath,
     },
     module: {
-      noParse: '/react|react-dom|mobx|mobx-react|axios|react-css-modules|react-router-dom/',  // 不去解析三方库
+      noParse:
+        '/react|react-dom|mobx|mobx-react|axios|react-css-modules|react-router-dom/', // 不去解析三方库
       rules: [
         {
           test: /\.js$/,
           exclude: /node_modules/,
           include: PATHS.src,
-          use: 'Happypack/loader?id=js',
+          use: 'happypack/loader?id=js',
         },
         // {
         //   test: /\.json$/,

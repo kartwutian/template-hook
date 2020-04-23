@@ -9,7 +9,7 @@ module.exports = {
   PATHS: {
     src: path.resolve(__dirname, '../src'),
     public: path.resolve(__dirname, '../src/public'),
-    dist: path.resolve(__dirname, `../dist${publicPath}`),
+    dist: path.resolve(__dirname, `../dist`),
     distDev: path.resolve(__dirname, `../dist`),
     global_styles: path.resolve(__dirname, '../src/assets/styles'),
     node_modules: path.resolve(__dirname, '../node_modules'),

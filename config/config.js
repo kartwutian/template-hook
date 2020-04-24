@@ -17,6 +17,7 @@ module.exports = {
   },
   DLL_ENTRY: {
     // 动态链接库入口配置
+    polyfill: ['@babel/polyfill'],
     mobx: ['mobx'],
     react: [
       'react',

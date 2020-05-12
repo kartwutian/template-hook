@@ -4,9 +4,9 @@ import { observer, useLocalStore } from 'mobx-react';
 import { Card, Table, Tag, Button, Row } from 'antd';
 import { useStore } from '@/store/index';
 
-import styles from './Developing.less';
+import styles from './List.less';
 
-function ProjectDevelopingPage() {
+function UserCarSubsidyMngValueAddTaxListPage() {
   const localStore = useLocalStore(() => ({
     list: [],
   }));
@@ -60,8 +60,8 @@ function ProjectDevelopingPage() {
     },
   ];
 
-  const store = useStore('modelProjectDeveloping'); // 注意store里面的数据不要使用解构赋值
-  console.log(store);
+  // const store = useStore('modelUserCarSubsidyMngValueAddTaxList'); // 注意store里面的数据不要使用解构赋值
+  // console.log(store);
 
   return (
     <>
@@ -80,4 +80,8 @@ function ProjectDevelopingPage() {
   );
 }
 
-export default observer(CSSModules(ProjectDevelopingPage, styles));
+export default observer(
+  CSSModules(UserCarSubsidyMngValueAddTaxListPage, styles, {
+    allowMultiple: true,
+  }),
+);

@@ -11,8 +11,7 @@
       "models/*": ["src/models/*"],
       "layout/*": ["src/layout/*"],
       "components/*": ["src/components/*"],
-      "pages/*": ["src/pages/*"],
-      "store/*": ["src/store/*"]
+      "pages/*": ["src/pages/*"]
     }
   },
   "exclude": ["node_modules", "dist"],

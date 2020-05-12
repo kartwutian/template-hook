@@ -71,7 +71,6 @@ module.exports = function () {
         pages: path.resolve(PATHS.src, 'pages'),
         models: path.resolve(PATHS.src, 'models'),
         utils: path.resolve(PATHS.src, 'utils'),
-        store: path.resolve(PATHS.src, 'store'),
       },
     },
   };

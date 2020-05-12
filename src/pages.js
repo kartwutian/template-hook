@@ -22,34 +22,114 @@ module.exports = {
     //   name: '首页',
     //   hasBread: true, // 是否展示自带面包屑
     //   subTitle: '子标题', // 自带header的子标题
+    //   isHideInMenus: true, // 代表在菜单栏隐藏菜单
     // },
     {
       path: 'pages/Login/index',
       route: '/login',
       name: '登录',
       isInLayout: false, // 标记不包括layout
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
     },
     {
-      path: 'pages/Home/index',
-      route: '/home',
-      name: '首页',
+      path: 'pages/Login/Forget',
+      route: '/login/forget',
+      name: '忘记密码',
+      isInLayout: false, // 标记不包括layout
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
     },
     {
-      route: '/project',
-      name: '项目',
+      route: '/settings',
+      name: '设置',
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
     },
     {
-      path: 'pages/Project/List',
-      route: '/project/list',
-      name: '项目列表',
-      hasBread: true,
+      path: 'pages/Settings/PasswordChange',
+      route: '/settings/password_change',
+      name: '修改密码',
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
     },
     {
-      path: 'pages/Project/Developing',
-      route: '/project/Developing',
-      name: '项目开发',
+      route: '/company',
+      name: '企业白名单管理',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      icon: 'icongengduo',
+    },
+    {
+      path: 'pages/Admin/Company/List',
+      route: '/company/list',
+      name: '白名单列表',
+      authority: ['admin'], // 用于权限控制，菜单和路由
       template: 'list',
-      hasBread: true,
+    },
+    {
+      path: 'pages/Admin/Company/Create',
+      route: '/company/create',
+      name: '新增企业白名单',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/Admin/Company/Update',
+      route: '/company/update',
+      name: '编辑企业白名单',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      route: '/account',
+      name: '账号管理',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      icon: 'icongengduo',
+    },
+    {
+      path: 'pages/Admin/Account/List',
+      route: '/account/list',
+      name: '账号列表',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      template: 'list',
+    },
+    {
+      route: '/car_subsidy_review',
+      name: '购车补贴审核',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      icon: 'icongengduo',
+    },
+    {
+      path: 'pages/Admin/CarSubsidyReview/ValueAddTax/List',
+      route: '/car_subsidy_review/value_add_tax',
+      name: '增值税审核',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      template: 'list',
+    },
+    {
+      path: 'pages/Admin/CarSubsidyReview/PurchaseTax/List',
+      route: '/car_subsidy_review/purchase_tax',
+      name: '购置税审核',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      template: 'list',
+    },
+    {
+      route: '/car_subsidy_mng',
+      name: '购车补贴管理',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      icon: 'icongengduo',
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/ValueAddTax/List',
+      route: '/car_subsidy_mng/value_add_tax',
+      name: '增值税补贴申请',
+      template: 'list',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      template: 'list',
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/PurchaseTax/List',
+      route: '/car_subsidy_mng/purchase_tax',
+      name: '购置税补贴申请',
+      template: 'list',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      template: 'list',
     },
     // {
     //   path: 'pages/Home/Shop/Demo',

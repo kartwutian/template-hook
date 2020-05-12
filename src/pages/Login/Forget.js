@@ -4,25 +4,25 @@ import { observer, useLocalStore } from 'mobx-react';
 import {} from 'antd';
 import { useStore } from '@/store/index';
 import { delay } from 'utils/helper';
-import {} from '<%=servicePath%>';
+import {} from './_service.Login.js';
 
-import styles from '<%= stylePath%>';
+import styles from './Forget.less';
 
-function <%= modelName%>Page() {
+function LoginForgetPage() {
   const localStore = useLocalStore(() => ({}));
 
-  // const store = useStore('model<%= modelName%>'); // 注意store里面的数据不要使用解构赋值
+  // const store = useStore('modelLoginForget'); // 注意store里面的数据不要使用解构赋值
   // console.log(store);
 
   return (
     <div styleName="page">
-      <p><%= modelName%>Page</p>
+      <p>LoginForgetPage</p>
     </div>
   );
 }
 
 export default observer(
-  CSSModules(<%= modelName%>Page, styles, {
+  CSSModules(LoginForgetPage, styles, {
     allowMultiple: true,
   }),
 );

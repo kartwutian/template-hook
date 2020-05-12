@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Menu } from 'antd';
+import WbIcon from 'components/WbIcon/index';
+
 import { useStore } from '@/store/index';
 // import { MenuFoldOutlined } from '@ant-design/icons';
 import auth from 'utils/auth';
@@ -19,6 +21,7 @@ const renderSubMenu = (route) => {
       key={route.route}
       title={
         <span>
+          {route.icon ? <WbIcon type={route.icon}></WbIcon> : null}
           <span>{route.name}</span>
         </span>
       }
@@ -33,7 +36,10 @@ const renderMenuItem = (route) => {
   if (route.authority && !auth(route.authority)) return null; // 如果有设置权限，则只展示有权限的菜单
   return (
     <Menu.Item key={route.route}>
-      <Link to={route.route}>{route.name}</Link>
+      <Link to={route.route}>
+        {route.icon ? <WbIcon type={route.icon}></WbIcon> : null}
+        <span>{route.name}</span>
+      </Link>
     </Menu.Item>
   );
 };

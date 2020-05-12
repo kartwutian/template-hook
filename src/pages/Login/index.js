@@ -15,6 +15,7 @@ function LoginPage() {
   const formRef = useRef(null);
   const handleSubmit = (values) => {
     message.success('登录成功');
+    globalStore.login({ name: 'susan' });
     globalStore.commit({
       USER_INFO: { name: 'susan' },
     });
@@ -29,7 +30,7 @@ function LoginPage() {
         <div styleName="top">
           <div styleName="header">
             <Link to="/">
-              <div styleName="bg-test"></div>
+              {/* <div styleName="bg-test"></div> */}
               <img
                 styleName="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
@@ -39,7 +40,7 @@ function LoginPage() {
             </Link>
           </div>
           <div styleName="desc">万博通用后台管理系统模板</div>
-          <img src={`${__PUBLIC_PATH__}logo.png`} />
+          {/* <img src={`${__PUBLIC_PATH__}logo.png`} /> */}
         </div>
         <div styleName="login">
           <Form

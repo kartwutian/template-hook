@@ -1,5 +1,7 @@
+import storage from 'store';
+
 export default (roles) => {
-  const auth = window.localStorage.getItem('authority');
+  const auth = storage.get('authority');
   // 支持字符
   if (typeof roles === 'string') {
     return auth === roles;

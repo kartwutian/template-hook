@@ -25,17 +25,10 @@ const App = ({ children }) => {
   const globalStore = useStore('globalModel');
   const menu = (
     <Menu className="user-menu" selectedKeys={[]} onClick={handleMenuClick}>
-      <Menu.Item key="userCenter">
-        <Link to="/">
-          <UserAddOutlined />
-          个人中心
-        </Link>
-      </Menu.Item>
-      <Menu.Divider />
       <Menu.Item key="userinfo">
-        <Link to="/">
+        <Link to="/settings/password_change">
           <SettingOutlined />
-          个人设置
+          <span style={{ paddingLeft: 10 }}>修改密码</span>
         </Link>
       </Menu.Item>
       <Menu.Divider />
@@ -47,7 +40,7 @@ const App = ({ children }) => {
         }}
       >
         <LogoutOutlined />
-        退出登录
+        <span style={{ paddingLeft: 4 }}>退出登录</span>
       </Menu.Item>
     </Menu>
   );
@@ -99,6 +92,8 @@ const App = ({ children }) => {
     ) : null;
   };
 
+  console.log(globalStore);
+
   return (
     <Layout styleName="app-layout">
       <Sider collapsed={collapsed}>
@@ -127,7 +122,7 @@ const App = ({ children }) => {
             {collapsed}
           </div>
           <div styleName="header-item--main"></div>
-          <div styleName="header-item">
+          {/* <div styleName="header-item">
             <Tooltip title="使用文档">
               <a
                 target="_blank"
@@ -138,11 +133,11 @@ const App = ({ children }) => {
                 <QuestionCircleOutlined styleName="icon-size--primary" />
               </a>
             </Tooltip>
-          </div>
+          </div> */}
 
           <div styleName="header-item">
             <Dropdown overlay={menu}>
-              <span>
+              <div>
                 {/* <Avatar
                       size="small"
                       styleName="avatar"
@@ -151,7 +146,7 @@ const App = ({ children }) => {
                       alt="avatar"
                     /> */}
                 <span>{globalStore.USER_INFO.name}</span>
-              </span>
+              </div>
             </Dropdown>
           </div>
         </Header>

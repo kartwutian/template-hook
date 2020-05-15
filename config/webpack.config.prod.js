@@ -38,6 +38,7 @@ module.exports = function () {
         new UglifyjsPlugin({
           // 使用缓存
           cache: true,
+          sourceMap: true,
         }),
         new OptimizeCssPlugin(),
       ],
@@ -147,6 +148,6 @@ module.exports = function () {
       }),
       ...DllReferencePlugins,
     ],
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
   });
 };

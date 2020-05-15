@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { lazy, Suspense } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { createHashHistory } from 'history';
 import { observer } from 'mobx-react';
 import { useStore } from '@/store/index';
@@ -90,6 +90,7 @@ function AppRouter() {
             <App>
               <Switch>
                 {renderRouter(routerInner)}
+                <Redirect to={globalStore.HOME_ROUTE}></Redirect>
                 <Route
                   render={(props) => {
                     return <Exception type="404" />;

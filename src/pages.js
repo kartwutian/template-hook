@@ -2,15 +2,19 @@ module.exports = {
   webpack: {
     dll: {}, // 扩展dll动态链接库
     //存放需要变动的webpack的配置参数
-    publicPath: '/dist/', // 打包时候的前缀配置，注意一定要/开头，/结尾，因为我偷懒了,不会用在开发环境
+    publicPath: '/cps_web/', // 打包时候的前缀配置，注意一定要/开头，/结尾，因为我偷懒了,不会用在开发环境
     htmlWebpackPlugin: {
       title: 'template-admin',
     }, // html-webpack-plugin 的配置参数，主要可以用来配置title及其meta
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        pathRewrite: { '^/api': '' },
+      '/proxy': {
+        target: 'http://192.168.18.83:8092',
+        pathRewrite: { '^/proxy': '' },
       },
+      // '/cps-server': {
+      //   target: 'http://183.131.202.136:8008/cps-server',
+      //   pathRewrite: { '^/cps-server': '' },
+      // },
     }, // 开发时候的代理配置
   },
   pages: [
@@ -50,10 +54,48 @@ module.exports = {
       isHideInMenus: true, // 代表在菜单栏隐藏菜单
     },
     {
+      route: '/car_subsidy_review',
+      name: '购车补贴审核',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      icon: 'iconlinecar104',
+    },
+    {
+      path: 'pages/Admin/CarSubsidyReview/ValueAddTax/List',
+      route: '/car_subsidy_review/value_add_tax',
+      name: '购车发票审核',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      template: 'list',
+      isHideChildrenInMenu: true,
+    },
+    {
+      path: 'pages/Admin/CarSubsidyReview/ValueAddTax/Detail',
+      route: '/car_subsidy_review/value_add_tax/detail',
+      name: '购车发票审核详情',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+      hasBread: true,
+    },
+    {
+      path: 'pages/Admin/CarSubsidyReview/PurchaseTax/List',
+      route: '/car_subsidy_review/purchase_tax',
+      name: '购置税发票审核',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      template: 'list',
+      isHideChildrenInMenu: true,
+    },
+    {
+      path: 'pages/Admin/CarSubsidyReview/PurchaseTax/Detail',
+      route: '/car_subsidy_review/purchase_tax/detail',
+      name: '购置税发票审核详情',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+      hasBread: true,
+    },
+    {
       route: '/company',
       name: '企业白名单管理',
       authority: ['admin'], // 用于权限控制，菜单和路由
-      icon: 'icongengduo',
+      icon: 'iconqiye',
     },
     {
       path: 'pages/Admin/Company/List',
@@ -81,6 +123,7 @@ module.exports = {
       name: '账号管理',
       authority: ['admin'], // 用于权限控制，菜单和路由
       icon: 'icongengduo',
+      isHideInMenus: true,
     },
     {
       path: 'pages/Admin/Account/List',
@@ -89,47 +132,98 @@ module.exports = {
       authority: ['admin'], // 用于权限控制，菜单和路由
       template: 'list',
     },
-    {
-      route: '/car_subsidy_review',
-      name: '购车补贴审核',
-      authority: ['admin'], // 用于权限控制，菜单和路由
-      icon: 'icongengduo',
-    },
-    {
-      path: 'pages/Admin/CarSubsidyReview/ValueAddTax/List',
-      route: '/car_subsidy_review/value_add_tax',
-      name: '增值税审核',
-      authority: ['admin'], // 用于权限控制，菜单和路由
-      template: 'list',
-    },
-    {
-      path: 'pages/Admin/CarSubsidyReview/PurchaseTax/List',
-      route: '/car_subsidy_review/purchase_tax',
-      name: '购置税审核',
-      authority: ['admin'], // 用于权限控制，菜单和路由
-      template: 'list',
-    },
+
     {
       route: '/car_subsidy_mng',
-      name: '购车补贴管理',
+      name: '购车补贴申请',
       authority: ['user'], // 用于权限控制，菜单和路由
       icon: 'icongengduo',
     },
     {
       path: 'pages/User/CarSubsidyMng/ValueAddTax/List',
       route: '/car_subsidy_mng/value_add_tax',
-      name: '增值税补贴申请',
+      name: '提交购车发票审核',
       template: 'list',
       authority: ['user'], // 用于权限控制，菜单和路由
-      template: 'list',
+      isHideChildrenInMenu: true,
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/ValueAddTax/Create',
+      route: '/car_subsidy_mng/value_add_tax/create',
+      name: '上报购车发票',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/ValueAddTax/Update',
+      route: '/car_subsidy_mng/value_add_tax/update',
+      name: '修改购车发票',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/ValueAddTax/Detail',
+      route: '/car_subsidy_mng/value_add_tax/detail',
+      name: '购车发票详情',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+      hasBread: true,
     },
     {
       path: 'pages/User/CarSubsidyMng/PurchaseTax/List',
       route: '/car_subsidy_mng/purchase_tax',
-      name: '购置税补贴申请',
+      name: '提交购置税发票审核',
       template: 'list',
       authority: ['user'], // 用于权限控制，菜单和路由
-      template: 'list',
+      isHideChildrenInMenu: true,
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/PurchaseTax/Create',
+      route: '/car_subsidy_mng/purchase_tax/create',
+      name: '上报购置税发票',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/PurchaseTax/Update',
+      route: '/car_subsidy_mng/purchase_tax/update',
+      name: '修改购置税发票',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/User/CarSubsidyMng/PurchaseTax/Detail',
+      route: '/car_subsidy_mng/purchase_tax/detail',
+      name: '购置税发票详情',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+      hasBread: true,
+    },
+    {
+      route: '/analysis',
+      name: '统计分析',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+      icon: 'iconlinecar104',
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/Admin/Analysis/index',
+      route: '/analysis/data_analysis',
+      name: '统计分析',
+      authority: ['admin'], // 用于权限控制，菜单和路由
+    },
+    {
+      route: '/statistical_analysis',
+      name: '统计分析',
+      authority: ['user'], // 用于权限控制，菜单和路由
+      icon: 'iconlinecar104',
+      isHideInMenus: true, // 代表在菜单栏隐藏菜单
+    },
+    {
+      path: 'pages/User/Analysis/index',
+      route: '/statistical_analysis/data_analysis',
+      name: '统计分析',
+      authority: ['user'], // 用于权限控制，菜单和路由
     },
     // {
     //   path: 'pages/Home/Shop/Demo',

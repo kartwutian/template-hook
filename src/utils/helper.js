@@ -28,3 +28,9 @@ export const exchangeToEnum = (
     return result;
   }, {});
 };
+
+export const getExtName = (fullPath) => {
+  let index = fullPath.lastIndexOf('.');
+  let suffix = fullPath.substr(index + 1);
+  return suffix;
+};

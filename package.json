@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dll": "webpack --config ./config/webpack.config.dll.js ",
-    "start": "webpack-dev-server --progress --hot --open --config config/webpack.config.dev.js",
+    "start": "webpack-dev-server --progress --hot --config config/webpack.config.dev.js",
     "build": "webpack --progress --config config/webpack.config.prod.js",
     "g:pages": "node ./scripts/generatePages.js",
     "eslinit:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx ./src",
@@ -59,6 +59,9 @@
     "classnames": "^2.2.6",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
+    "moment": "^2.25.3",
+    "path-browserify": "^1.0.1",
+    "rc-upload": "^3.0.4",
     "react": "^16.13.1",
     "react-css-modules": "^4.7.11",
     "react-dom": "^16.13.1",

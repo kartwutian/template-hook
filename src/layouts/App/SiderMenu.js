@@ -1,21 +1,20 @@
 import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { observer } from 'mobx-react';
+import { observer, useLocalStore } from 'mobx-react';
 import { Menu } from 'antd';
 import WbIcon from 'components/WbIcon/index';
 
 import { useStore } from '@/store/index';
+
 // import { MenuFoldOutlined } from '@ant-design/icons';
 import auth from 'utils/auth';
+import fetchMenusRouter, { queryRouteNode } from 'utils/fetchMenusRouter';
 
 const { SubMenu } = Menu;
 
 // import style from './style.less';
 
 const renderSubMenu = (route) => {
-  if (route.isHideInMenus) return null; // 如果设置了隐藏，则菜单不显示
-  if (route.authority && !auth(route.authority)) return null; // 如果有设置权限，则只展示有权限的菜单
-
   return (
     <SubMenu
       key={route.route}
@@ -32,8 +31,6 @@ const renderSubMenu = (route) => {
 };
 
 const renderMenuItem = (route) => {
-  if (route.isHideInMenus) return null; // 如果设置了隐藏，则菜单不显示
-  if (route.authority && !auth(route.authority)) return null; // 如果有设置权限，则只展示有权限的菜单
   return (
     <Menu.Item key={route.route}>
       <Link to={route.route}>
@@ -59,6 +56,20 @@ function SiderMenu(props) {
   const history = useHistory();
   const location = useLocation();
   console.log(collapsed);
+  console.log('-------------------------');
+  const menusRouter = fetchMenusRouter(globalStore.router);
+  console.log(menusRouter);
+
+  // const localStore = useLocalStore(() => ({}));
+
+  const menuNode = queryRouteNode(menusRouter, location.pathname);
+  // console.log(location.pathname);
+  // console.log(menuNode);
+  if (menuNode && menuNode.route !== globalStore.MENU_SELECTKEYS[0]) {
+    globalStore.commit({
+      MENU_SELECTKEYS: [menuNode.route],
+    });
+  }
   // const handleMenuClick = ({ key }) => {
 
   //   if (key === '/project') {
@@ -68,15 +79,16 @@ function SiderMenu(props) {
 
   return (
     <Menu
+      defaultOpenKeys={[menusRouter[0].route]}
       defaultSelectedKeys={['/home']}
-      selectedKeys={[location.pathname]}
+      selectedKeys={globalStore.MENU_SELECTKEYS}
       // defaultOpenKeys={['exchangemgr']}
       mode="inline"
       theme="dark"
       inlineCollapsed={collapsed}
       // onClick={handleMenuClick}
     >
-      {renderMenus(globalStore.router)}
+      {renderMenus(menusRouter)}
     </Menu>
   );
 }

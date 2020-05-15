@@ -1,7 +1,10 @@
 import axios from 'axios'; // 引用axios
 import { message } from 'antd';
+import { appHistory } from '@/layouts/Root/AppRouter';
+import globalStore from '@/models/Global';
 
 export const SUCCESS_CODE = '000000';
+export const SESSION_EXPIRED = '1000000';
 
 // eslint-disable-next-line no-unused-vars
 const codeMessage = {
@@ -24,14 +27,28 @@ const codeMessage = {
 };
 
 // axios 配置
+export let requestBaseUrl = '/proxy';
+
+/**
+ * 路径转换
+ * @param {*} url
+ */
+export const URL_EXCHANGE = (url) => {
+  if (process.env.NODE_ENV === 'development') {
+    return `${requestBaseUrl}${url}`;
+  } else {
+    return `/cps-server${url}`;
+  }
+};
+
 axios.defaults.timeout = 30000;
 // 通过注入的环境变量判断代码执行环境做不同的配置
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV === 'development') {
   // http://rap2api.taobao.org/app/mock/121297/${config.method}
-  // axios.defaults.baseURL = '/proxy'; // 这是本地调用路径前缀
+  axios.defaults.baseURL = requestBaseUrl; // 这是本地调用路径前缀
 } else {
-  // axios.defaults.baseURL = '/post'; // 这是线上调用路径前缀
+  axios.defaults.baseURL = '/cps-server'; // 这是线上调用路径前缀
 }
 
 axios.defaults.withCredentials = true;
@@ -78,6 +95,7 @@ export default function request(url, options) {
     })
     .catch(async (error) => {
       console.dir(error);
+
       if (error.response) {
         // 处理有response的请求错误
         if (error.status >= 200 && error.status < 300) {
@@ -99,6 +117,17 @@ export default function request(url, options) {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
         message.error('请求失败，未知错误');
+      }
+
+      // session 过期 回到登录页
+      if (
+        error.status === 200 &&
+        error.response &&
+        error.response.data &&
+        error.response.data.code == SESSION_EXPIRED
+      ) {
+        globalStore.logout();
+        appHistory.push('/login');
       }
       // console.dir && console.dir(error);
       return Promise.reject(error);

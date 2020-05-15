@@ -5,7 +5,7 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common')();
-const { PATHS, DLL_ENTRY } = require('./config');
+const { PATHS, DLL_ENTRY_DEV } = require('./config');
 const { webpack: webpackConfig } = require('../src/pages.js');
 
 const publicPath = '/'; // 开发时统一publicPath为 '/'
@@ -16,7 +16,7 @@ const htmlWebpackPluginOptionsExtend = webpackConfig
 // 设置环境变量
 process.env.NODE_ENV = 'development';
 
-const DllReferencePlugins = Object.keys(DLL_ENTRY).map((name) => {
+const DllReferencePlugins = Object.keys(DLL_ENTRY_DEV).map((name) => {
   return new webpack.DllReferencePlugin({
     //引用动态链接库
     manifest: path.resolve(PATHS.dll, `manifest.${name}.json`),
@@ -40,6 +40,7 @@ module.exports = function () {
       inline: true,
       disableHostCheck: true,
       publicPath,
+      host: '0.0.0.0',
       proxy: webpackConfig && webpackConfig.proxy ? webpackConfig.proxy : {},
     },
     module: {
@@ -125,7 +126,7 @@ module.exports = function () {
         template: 'src/assets/template/index.html',
         filename: 'index.html',
         publicPath,
-        dll: Object.keys(DLL_ENTRY).map((name) => {
+        dll: Object.keys(DLL_ENTRY_DEV).map((name) => {
           return `${publicPath}__dll__${name}.js`;
         }),
         ...htmlWebpackPluginOptionsExtend,

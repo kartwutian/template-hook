@@ -17,3 +17,10 @@ export function postTest(params) {
     data: params,
   });
 }
+
+export function updatePwd(params) {
+  return request('/api/updatePwd', {
+    method: 'post',
+    data: params,
+  });
+}

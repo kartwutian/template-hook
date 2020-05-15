@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CSSModules from 'react-css-modules';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons';
 import { useStore } from '@/store/index';
 import SiderMenu from './SiderMenu';
+import { userLogout } from '@/pages/Login/_service.Login';
 
 import styles from './index.less';
 
@@ -23,6 +24,10 @@ const App = ({ children }) => {
   const location = useLocation();
   const history = useHistory();
   const globalStore = useStore('globalModel');
+
+  useEffect(() => {
+    globalStore.storeEnums();
+  }, []);
   const menu = (
     <Menu className="user-menu" selectedKeys={[]} onClick={handleMenuClick}>
       <Menu.Item key="userinfo">
@@ -34,9 +39,14 @@ const App = ({ children }) => {
       <Menu.Divider />
       <Menu.Item
         key="logout"
-        onClick={() => {
-          history.push('/logout');
-          globalStore.logout();
+        onClick={async () => {
+          try {
+            await userLogout();
+            history.push('/logout');
+            globalStore.logout();
+          } catch (error) {
+            console.error(error);
+          }
         }}
       >
         <LogoutOutlined />
@@ -73,9 +83,23 @@ const App = ({ children }) => {
     console.log(sourceData);
     const routes =
       sourceData.length > 1
-        ? sourceData.map((item) => {
+        ? sourceData.map((item, index) => {
+            // console.log(item.route);
+            // console.log(item.route.substring(1));
+            let tempPath = '';
+
+            if (item.route) {
+              if (index === 0) {
+                tempPath = item.route.split('/')[1];
+              } else {
+                tempPath = item.route
+                  .replace(sourceData[index - 1].route, '')
+                  .split('/')[1];
+              }
+            }
+
             return {
-              path: item.path ? item.route : './',
+              path: tempPath,
               breadcrumbName: item.name,
             };
           })
@@ -106,7 +130,7 @@ const App = ({ children }) => {
               <MenuUnfoldOutlined
                 styleName="icon-size--primary"
                 onClick={() => {
-                  console.log(1);
+                  // console.log(1);
                   setCollapsed(false);
                 }}
               />
@@ -114,7 +138,7 @@ const App = ({ children }) => {
               <MenuFoldOutlined
                 styleName="icon-size--primary"
                 onClick={() => {
-                  console.log(2);
+                  // console.log(2);
                   setCollapsed(true);
                 }}
               />
@@ -145,7 +169,11 @@ const App = ({ children }) => {
                       // src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
                       alt="avatar"
                     /> */}
-                <span>{globalStore.USER_INFO.name}</span>
+                <span>
+                  {globalStore.USER_INFO.name ||
+                    globalStore.USER_INFO.loginId ||
+                    '--'}
+                </span>
               </div>
             </Dropdown>
           </div>
@@ -155,9 +183,7 @@ const App = ({ children }) => {
           {renderSubHeader()}
           <div styleName="app-layout__content">{children}</div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          万博大数据 ©2020 Created by XX
-        </Footer>
+        <Footer style={{ textAlign: 'center' }}>万博大数据提供技术支持</Footer>
       </Layout>
     </Layout>
   );

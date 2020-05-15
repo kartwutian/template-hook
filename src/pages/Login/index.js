@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import CSSModules from 'react-css-modules';
 import { Button, Form, Input, Checkbox, message } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { useStore } from '@/store/index';
 import { observer, useLocalStore } from 'mobx-react';
+import { login } from '@/pages/Login/_service.Login';
 
 import styles from './index.less';
 
@@ -13,15 +14,28 @@ function LoginPage() {
   const localStore = useLocalStore(() => ({}));
   const history = useHistory();
   const formRef = useRef(null);
-  const handleSubmit = (values) => {
-    message.success('登录成功');
-    globalStore.login({ name: 'susan' });
-    globalStore.commit({
-      USER_INFO: { name: 'susan' },
-    });
-    history.push('/home');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (values) => {
+    try {
+      setLoading(true);
+      const { data } = await login(values);
+      if (data) {
+        await globalStore.login(data);
+      }
+      history.push('/');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
-  const onFinishFailed = () => {};
+  const onFinishFailed = (e) => {
+    console.error(e);
+  };
+  const goToReset = () => {
+    history.push('/login/forget');
+  };
   console.log(process);
   console.log(process.env.NODE_ENV);
   return (
@@ -31,15 +45,15 @@ function LoginPage() {
           <div styleName="header">
             <Link to="/">
               {/* <div styleName="bg-test"></div> */}
-              <img
+              {/* <img
                 styleName="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
                 alt="logo"
-              />
-              <span styleName="title">基于 Ant Design</span>
+              /> */}
+              <span styleName="title">购车补贴系统</span>
             </Link>
           </div>
-          <div styleName="desc">万博通用后台管理系统模板</div>
+          <div styleName="desc"></div>
           {/* <img src={`${__PUBLIC_PATH__}logo.png`} /> */}
         </div>
         <div styleName="login">
@@ -51,7 +65,7 @@ function LoginPage() {
           >
             <Form.Item
               label="账号"
-              name="username"
+              name="loginId"
               rules={[
                 {
                   required: true,
@@ -76,11 +90,21 @@ function LoginPage() {
             </Form.Item>
 
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox>记住密码</Checkbox>
+              <div styleName="forgetPassword">
+                {/* <Checkbox>记住密码</Checkbox> */}
+                <div></div>
+                <a onClick={goToReset}>忘记密码?</a>
+              </div>
             </Form.Item>
 
             <Form.Item>
-              <Button size="large" block type="primary" htmlType="submit">
+              <Button
+                size="large"
+                block
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+              >
                 登录
               </Button>
             </Form.Item>

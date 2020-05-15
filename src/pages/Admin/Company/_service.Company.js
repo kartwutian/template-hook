@@ -17,3 +17,51 @@ export function postTest(params) {
     data: params,
   });
 }
+
+export function getList(params) {
+  return request('/api/merchant/list', {
+    method: 'post',
+    data: params,
+  });
+}
+
+export function getdetailInfo(params) {
+  return request('/api/subsidyStock/detail', {
+    method: 'post',
+    data: params,
+  });
+}
+
+export function getTypeList(params) {
+  return request('/api/subsidy/getList', {
+    method: 'post',
+    data: params,
+  });
+}
+
+export function add(params) {
+  return request('/api/merchant/add', {
+    method: 'post',
+    data: params,
+  });
+}
+
+export function edit(params) {
+  return request('/api/merchant/edit ', {
+    method: 'post',
+    data: params,
+  });
+}
+export function reduceOrAdd(params) {
+  return request('/api/subsidyStock/reduceOrAdd  ', {
+    method: 'post',
+    data: params,
+  });
+}
+
+export function getDetail(params) {
+  return request('/api/merchant/detail', {
+    method: 'post',
+    data: params,
+  });
+}
